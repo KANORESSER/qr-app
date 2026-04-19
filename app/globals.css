@@ -41,3 +41,34 @@ body {
 .font-yomogi {
   font-family: 'Yomogi', cursive;
 }
+
+
+.speech-bubble {
+  position: absolute;
+  bottom: 100%;
+  left: -5%;
+  margin-bottom: 12px;
+
+  background: #fff;
+  border-radius: 16px;
+  padding: 10px 14px;
+  width: max-content;
+  max-width: 220px;
+
+  font-size: 16px;
+  line-height: 1.5;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+  z-index: 10;
+}
+.speech-bubble::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 0%;
+  width: 14px;
+  height: 14px;
+  background: #fff;
+  transform: translateX(50%) rotate(45deg);
+  margin-top: -7px;
+}

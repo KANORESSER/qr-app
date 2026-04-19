@@ -1,9 +1,22 @@
 "use client";
-import { useState } from "react";
-import QRCode from "react-qr-code";
+import { useState, useEffect } from "react";
+// import QRCode from "react-qr-code";
+import * as QRCodeLib from "qrcode";
 
 export default function Home() {
   const [text, setText] = useState("");
+  const [qrUrl, setQrUrl] = useState("");
+
+  useEffect(() => {
+    if (!text) {
+      setQrUrl("");
+      return;
+    }
+
+    QRCodeLib.toDataURL(text).then((url) => {
+      setQrUrl(url);
+    });
+  }, [text]);
 
   const downloadQR = () => {
     const svg = document.getElementById("qr-code")?.querySelector("svg");
@@ -41,10 +54,10 @@ export default function Home() {
   return (
     <div className="h-svh">
       <header>
-        <h1 className="flex justify-center items-center h-[100px] bg-[var(--color-brown)] text-white text-3xl font-bold mb-24 shrink-0">QRコードジェネレッサー</h1>
+        <h1 className="flex justify-center items-center h-[100px] bg-[var(--color-brown)] text-white text-3xl font-bold mb-32 shrink-0">QRコードジェネレッサー</h1>
       </header>
       <main className="flex flex-col items-center justify-center p-4 flex-1">
-        <div className="relative w-80 mt-4">
+        <div className="relative w-80">
           <input
             value={text}
             onChange={(e) => setText(e.target.value)}
@@ -56,10 +69,18 @@ export default function Home() {
             alt="レッくん"
             className="absolute right-[0px] top-[-85px] w-30 pointer-events-none drop-shadow-md"
           />
+          <div className="speech-bubble">
+            スマホで写真フォルダに保存するときは<br />
+            QRコードを長押ししてくレッサー🐾
+          </div>
         </div>
 
-        <div id="qr-code" className="bg-white p-4 mt-4">
-          <QRCode value={text} size={256} />
+        <div className="bg-white p-4 m-4 w-50 h-50 flex items-center justify-center text-center">
+          {qrUrl ? (
+            <img src={qrUrl} alt="QRコード" />
+          ) : (
+            <p className="text-gray-400">URLを入力してくレッサー🐾</p>
+          )}
         </div>
 
         <button
