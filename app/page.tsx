@@ -39,11 +39,11 @@ export default function Home() {
   };
 
   return (
-    <div>
+    <div className="h-svh">
       <header>
-        <h1 className="flex justify-center items-center h-[100px] bg-[var(--color-brown)] text-white text-3xl font-bold mb-4">QRコードジェネレッサー</h1>
+        <h1 className="flex justify-center items-center h-[100px] bg-[var(--color-brown)] text-white text-3xl font-bold mb-24 shrink-0">QRコードジェネレッサー</h1>
       </header>
-      <main className="flex flex-col items-center justify-center min-h-screen p-4">
+      <main className="flex flex-col items-center justify-center p-4 flex-1">
         <div className="relative w-80 mt-4">
           <input
             value={text}

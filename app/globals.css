@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Kiwi+Maru&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Yomogi&display=swap');
+
 @import "tailwindcss";
 
 :root {
@@ -14,8 +18,26 @@
   }
 }
 
+/* ===== 全体フォント（まずはこれ） ===== */
 body {
   background: var(--color-cream);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+}
+
+/* ===== フォント切り替え用クラス ===== */
+
+/* ① ゆるかわ（おすすめ） */
+.font-kiwi {
+  font-family: 'Kiwi Maru', sans-serif;
+}
+
+/* ② ポップ */
+.font-rounded {
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+}
+
+/* ③ 手書き */
+.font-yomogi {
+  font-family: 'Yomogi', cursive;
 }
