@@ -13,42 +13,27 @@ export default function Home() {
       return;
     }
 
-    QRCodeLib.toDataURL(text).then((url) => {
+    QRCodeLib.toDataURL(text, {
+      width: 512,   // ← ここ追加（解像度アップ）
+      margin: 2,    // ← 余白（読み取りやすくなる）
+    }).then((url) => {
       setQrUrl(url);
     });
   }, [text]);
 
   const downloadQR = () => {
-    const svg = document.getElementById("qr-code")?.querySelector("svg");
-    if (!svg) return;
+    if (!qrUrl) return;
 
-    const serializer = new XMLSerializer();
-    const svgString = serializer.serializeToString(svg);
-
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
-
-    const img = new Image();
-    const blob = new Blob([svgString], { type: "image/svg+xml;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-
-    img.onload = () => {
-      canvas.width = 256;
-      canvas.height = 256;
-
-      ctx?.drawImage(img, 0, 0);
-
-      const pngFile = canvas.toDataURL("image/png");
-
+    if (navigator.userAgent.match(/iPhone|Android/)) {
+      // スマホ → 画像表示
+      window.open(qrUrl, "_blank");
+    } else {
+      // PC → ダウンロード
       const a = document.createElement("a");
-      a.href = pngFile;
+      a.href = qrUrl;
       a.download = "qr-code.png";
       a.click();
-
-      URL.revokeObjectURL(url);
-    };
-
-    img.src = url;
+    }
   };
 
   return (
